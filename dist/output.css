@@ -644,6 +644,11 @@ video {
   margin-bottom: 1.5rem;
 }
 
+.my-9 {
+  margin-top: 2.25rem;
+  margin-bottom: 2.25rem;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -738,6 +743,10 @@ video {
 
 .h-52 {
   height: 13rem;
+}
+
+.h-16 {
+  height: 4rem;
 }
 
 .max-h-px {
@@ -862,6 +871,10 @@ video {
 
 .justify-center {
   justify-content: center;
+}
+
+.justify-items-center {
+  justify-items: center;
 }
 
 .gap-5 {
@@ -1036,6 +1049,11 @@ video {
   padding-right: 8rem;
 }
 
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
 .pl-16 {
   padding-left: 4rem;
 }
@@ -1153,6 +1171,10 @@ video {
 
 :is(.dark .dark\:inline) {
   display: inline;
+}
+
+:is(.dark .dark\:flex) {
+  display: flex;
 }
 
 :is(.dark .dark\:hidden) {
