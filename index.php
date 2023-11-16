@@ -7,10 +7,60 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="dist/output.css">
+    <link rel="stylesheet" href="/dist/output.css">
     <script src="https://smtpjs.com/v3/smtp.js"></script>
 </head>
 <body class="bg-white font-baskerville dark:bg-blue-darker dark:text-white">
+
+<?php
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+
+    require 'vendor/autoload.php'; // Include PHPMailer autoloader
+
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $email = $_POST["email"];
+        $message = $_POST["message"];
+
+        // Validate inputs (you can add more validation if needed)
+
+        if (empty($email) || empty($message)) {
+            echo "Please fill in all fields.";
+        } else {
+            $to = "sylvestermsmithiii@gmail.com"; // Replace with your email address
+            $subject = "New Contact Form Submission";
+
+            $mail = new PHPMailer(true);
+
+            try {
+                //Server settings
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com'; // Replace with your SMTP server
+                $mail->SMTPAuth = true;
+                $mail->Username = 'sylvestermsmithiii@gmail.com'; // Replace with your SMTP username
+                $mail->Password = 'sqev zayf waft sjcb'; // Replace with your SMTP password
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 587;
+
+                //Sender
+                $mail->setFrom($email);
+
+                //Recipient
+                $mail->addAddress($to);
+
+                //Content
+                $mail->isHTML(false); // Set to true if your message is HTML
+                $mail->Subject = $subject;
+                $mail->Body = "Email: $email\nMessage:\n$message";
+
+                $mail->send();
+
+            } catch (Exception $e) {
+                echo "Error sending email. Please try again later. Error: {$mail->ErrorInfo}";
+            }
+        }
+    }
+?>
 
     <nav class="sticky top-0 z-10 bg-gray-200 dark:bg-dark-gray py-2 mb-2">
 
@@ -25,32 +75,34 @@
     </nav >
 
     <!-- hero section -->
-    <section id="hero" class="flex px-32">
-        <div class="w-3/5 my-8 lg:my-48 space-y-4 tracking-wider">
-            <h2 class="text-5xl leading-tight">Hi I am Sylvester, a Software Developer</h2>
-            <p class="text-justify">I'm a passionate software developer with a knack for problem-solving, and I specialize in full-stack development. Whether you have a project in mind or just want to chat tech, I'm here for you.</p>
-        </div>
+    <section id="hero" class="flex flex-col md:flex-row-reverse px-32">
 
-        <div class="w-2/5 p-4 self-center">
+        <div class="md:w-2/5 p-4 jus self-center">
             <div class="rounded-full overflow-hidden w-64 h-64 mx-auto my-auto">
                 <img src="pictures/selfie.JPG" alt="Picutre of me" class="w-full h-auto">
             </div>
         </div>
+
+        <div class="md:w-3/5 my-8 lg:my-48 space-y-4 tracking-wider">
+            <h2 class="text-5xl text-center md:text-left leading-tight">Hi I am Sylvester, a Software Developer</h2>
+            <p class="text-justify">I'm a passionate software developer with a knack for problem-solving, and I specialize in full-stack development. Whether you have a project in mind or just want to chat tech, I'm here for you.</p>
+        </div>
+
     </section>
     
 
     <h1 class="text-3xl mb-8 pl-2 sm:mx-4 md:mx-16 lg:mx-32">Featured Works</h1>
 
-<div id="works" class="sm:px-4 md:px-16 lg:px-32"> 
+<div id="works" class="flex flex-col-reverse sm:px-4 md:px-16 lg:px-32"> 
 
     <!-- Featured Work 1 -->
-<section class="flex space-x-4 mb-8">
-    <div class="w-1/3 h-full flex justify-center items-center">
+<section class="flex flex-col md:flex-row space-x-4 mb-8">
+    <div class="md:w-1/3 px-4 md:px-0 h-full flex justify-center items-center">
         <a href="https://sylvestersmithiii.github.io/Checkers-Game/" target="_blank">
             <img src="pictures/checkers.png" alt="Icon 1" class="aspect-auto">
         </a>
     </div>
-    <div class="w-2/3 space-y-6 h-full">
+    <div class="md:w-2/3 space-y-6 h-full">
       <h1 class="text-2xl">Checkers</h1>
       <p>A rendition of the classic game checkers. Challenge your strategic skills against your friends in this two-player game!</p>
       <!-- technology icons (with name on hover) -->
@@ -79,13 +131,13 @@
   <hr class="my-4">
 
   <!-- Featured Work 2 -->
-  <section class="flex space-x-4 mb-8">
-    <div class="w-1/3 h-full flex justify-center items-center">
+  <section class="flex flex-col md:flex-row space-x-4 mb-8">
+    <div class="md:w-1/3 px-4 md:px-0 h-full flex justify-center items-center">
         <a href="https://fit-trackrrr-95a1df865206.herokuapp.com/" target="_blank">
             <img src="pictures/fit-trackr.png" alt="second work" class="aspect-auto">
         </a>
     </div>
-    <div class="w-2/3 space-y-6 h-full">
+    <div class="md:w-2/3 space-y-6 h-full">
       <h1 class="text-2xl">Fit Trackr</h1>
       <p>A workout and routine tracker website. Create your goto workouts and make a complete routine out of them!</p>
       <!-- technology icons (with name on hover) -->
@@ -119,13 +171,13 @@
   <hr class="my-4">
 
   <!-- Featured Work 3 -->
-  <section class="flex space-x-4 mb-8">
-    <div class="w-1/3 h-full flex justify-center items-center">
+  <section class="flex flex-col md:flex-row space-x-4 mb-8">
+    <div class="md:w-1/3 px-4 md:px-0 h-full flex justify-center items-center">
         <a href="https://soundcanvas.onrender.com/" target="_blank">
             <img src="pictures/sound-canvas.png" alt="third work" class="aspect-auto">
         </a>
     </div>
-    <div class="w-2/3 space-y-6 h-full">
+    <div class="md:w-2/3 space-y-6 h-full">
       <h1 class="text-2xl">Sound Canvas</h1>
       <p>A hub to collect and share your opinions of your favorite albums! Hop over to the forum to discuss those opinions with others!</p>
       <!-- technology icons (with name on hover) -->
@@ -155,13 +207,13 @@
 
   <hr class="my-4">
   <!-- Featured Work 4 -->
-  <section class="flex space-x-4 mb-8">
-    <div class="w-1/3 h-full flex justify-center items-center">
+  <section class="flex flex-col md:flex-row space-x-4 mb-8">
+    <div class="md:w-1/3 px-4 md:px-0 h-full flex justify-center items-center">
         <a href="https://the-corner-office-fd46756f89b2.herokuapp.com/" target="_blank">
             <img src="pictures/the-corner-office.png" alt="third work" class="aspect-auto">
         </a>
     </div>
-    <div class="w-2/3 space-y-6 h-full">
+    <div class="md:w-2/3 space-y-6 h-full">
       <h1 class="text-2xl">The Corner Office</h1>
       <p>A one stop shop for all things news and weather! Create your personalized home page with specific new searches!</p>
       <!-- technology icons (with name on hover) -->
@@ -197,7 +249,7 @@
     <div class="flex flex-col md:flex-row items-center space-y-6 md:space-y-0">
       <div class="md:w-1/2">
         
-        <p class="text-lg leading-relaxed">
+        <p class="text-lg px-4 leading-relaxed">
           I'm Sylvester, a passionate software developer with a knack for problem-solving. I specialize in full-stack development, and I'm dedicated to creating innovative and user-friendly web applications.
         </p>
       </div>
@@ -215,17 +267,19 @@
     </div>
     
     </div>
-    <hr class="my-4">
+    
   </section>
 
   
   
 
-    <h1 class="text-3xl mb-8 pl-2 sm:mx-4 md:mx-16 lg:mx-32">Contact</h1>
+    
 
     <section id="contact" class="bg-gray-100 py-8 ">
+
+        <h1 class="text-3xl mb-8 pl-2 sm:mx-4 md:mx-16 lg:mx-32">Contact</h1>
         <div class="container mx-auto px-4">
-            <form id="contact-form" class="max-w-lg" onsubmit="sendEmail(); reset(); return false">
+            <form id="contact-form" class="max-w-lg" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <!-- Email Input -->
 
                     <label for="email" class="block font-semibold text-gray-600">Email</label>
@@ -287,25 +341,7 @@
 
             const userEmail = document.getElementById("email").value
             const message = document.getElementById("message").value
-            
-            // const button = document.getElementById("button")
 
-            // button.addEventListener("click", () => sendEmail())
-
-            function sendEmail(){
-                Email.send({
-                    Host: "smtp.gmail.com",
-                    Username: "sylvestermsmithiii@gmail.com",
-                    Password: "test123",
-                    To: "sylvestermsmithiii@gmail.com",
-                    From : document.getElementById("email").value,
-                    Subject : "Contact Form Submition",
-                    Body : document.getElementById("message").value
-                }).then(
-                    message => alert(message)
-                )
-
-            }
         });
       </script>
     
